@@ -7,11 +7,9 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
-COPY ["azure-web-api.csproj", "azure-web-api/"]
-RUN dotnet restore "azure-web-api/azure-web-api.csproj"
 COPY . .
-WORKDIR "/src/azure-web-api"
-RUN dotnet build "azure-web-api.csproj" -c Release -o /app/build
+RUN dotnet restore "./azure-web-api.csproj"
+RUN dotnet build "./azure-web-api.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "azure-web-api.csproj" -c Release -o /app/publish
