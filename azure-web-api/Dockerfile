@@ -7,7 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
-COPY ["azure-web-api/azure-web-api.csproj", "azure-web-api/"]
+COPY ["azure-web-api.csproj", "azure-web-api/"]
 RUN dotnet restore "azure-web-api/azure-web-api.csproj"
 COPY . .
 WORKDIR "/src/azure-web-api"
