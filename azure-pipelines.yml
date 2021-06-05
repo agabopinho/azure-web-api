@@ -10,11 +10,12 @@ resources:
 
 variables:
   dockerRegistryServiceConnection: "28fdf16c-3441-4caf-9a2d-67419534d921"
-  imageRepository: "azurewebapi"
   containerRegistry: "atekprd.azurecr.io"
-  dockerfilePath: "$(Build.SourcesDirectory)/azure-web-api/Dockerfile"
   tag: "$(Build.BuildId)"
   vmImageName: "ubuntu-latest"
+
+  imageRepository: "azurewebapi"
+  dockerfilePath: "$(Build.SourcesDirectory)/azure-web-api"
 
 stages:
   - stage: Build
@@ -29,8 +30,8 @@ stages:
         steps:
           - task: DockerInstaller@0
             inputs:
-              dockerVersion: '17.09.0-ce'
-              
+              dockerVersion: "17.09.0-ce"
+
           - task: Docker@2
             displayName: Build and push an image to container registry
             inputs:
