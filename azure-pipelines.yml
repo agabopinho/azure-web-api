@@ -32,6 +32,13 @@ stages:
             inputs:
               dockerVersion: "17.09.0-ce"
 
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                sudo systemctl enable docker.service
+                sudo systemctl enable containerd.service
+
           - task: Docker@2
             displayName: Build and push an image to container registry
             inputs:
