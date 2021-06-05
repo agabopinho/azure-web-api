@@ -16,7 +16,7 @@ jobs:
       - name: "Login via Azure CLI"
         uses: azure/login@v1
         with:
-          creds: $AZURE_CREDENTIALS
+          creds: ${{ $AZURE_CREDENTIALS }} 
 
       - name: "Build and push image"
         uses: azure/docker-login@v1
@@ -35,7 +35,7 @@ jobs:
       - name: "Login via Azure CLI"
         uses: azure/login@v1
         with:
-          creds: $AZURE_CREDENTIALS
+          creds: ${{ $AZURE_CREDENTIALS }}
 
       - name: "Deploy to Azure Container Instances"
         uses: "azure/aci-deploy@v1"
