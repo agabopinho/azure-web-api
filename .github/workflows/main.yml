@@ -25,8 +25,8 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }} 
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
-          docker build ./azure-web-api -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/azure-web-api:$GITHUB_RUN_NUMBER
-          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/azure-web-api:$GITHUB_RUN_NUMBER
+          docker build ./azure-web-api -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/azure-web-api:${{ github.run_number }}
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/azure-web-api:${{ github.run_number }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -42,7 +42,7 @@ jobs:
         with:
           resource-group: ${{ secrets.RESOURCE_GROUP }}
           dns-name-label: aztek-azure-web-api
-          image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/azure-web-api:$GITHUB_RUN_NUMBER
+          image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/azure-web-api:${{ github.run_number }}
           registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
           registry-username: ${{ secrets.REGISTRY_USERNAME }}
           registry-password: ${{ secrets.REGISTRY_PASSWORD }}
