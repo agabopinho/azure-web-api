@@ -21,9 +21,9 @@ jobs:
       - name: "Build and push image"
         uses: azure/docker-login@v1
         with:
-          login-server: $REGISTRY_LOGIN_SERVER
-          username: $REGISTRY_USERNAME
-          password: $REGISTRY_PASSWORD
+          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }} 
+          password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
           docker build ./azure-web-api -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/azure-web-api:$GITHUB_RUN_NUMBER
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/azure-web-api:$GITHUB_RUN_NUMBER
@@ -44,7 +44,7 @@ jobs:
           dns-name-label: aztek-azure-web-api
           image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/azure-web-api:$GITHUB_RUN_NUMBER
           registry-login-server: $REGISTRY_LOGIN_SERVER
-          registry-username: $REGISTRY_USERNAME
-          registry-password: $REGISTRY_PASSWORD
+          registry-username: ${{ secrets.REGISTRY_USERNAME }}
+          registry-password: ${{ secrets.REGISTRY_PASSWORD }}
           name: aztek-azure-web-api-container
           location: "brazilsouth"
