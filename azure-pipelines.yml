@@ -12,6 +12,8 @@ variables:
   dockerRegistryServiceConnection: "28fdf16c-3441-4caf-9a2d-67419534d921"
   containerRegistry: "atekprd.azurecr.io"
   tag: "$(Build.BuildId)"
+  
+  vmPool: "Azure Pipelines"
   vmImageName: "ubuntu-latest"
 
   imageRepository: "azurewebapi"
@@ -24,7 +26,7 @@ stages:
       - job: Build
         displayName: Build
         pool:
-          name: "Azure Pipelines"
+          name: $(vmPool)
           vmImage: $(vmImageName)
 
         steps:
