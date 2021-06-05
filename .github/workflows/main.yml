@@ -48,3 +48,5 @@ jobs:
           registry-password: ${{ secrets.REGISTRY_PASSWORD }}
           name: aztek-azure-web-api-container
           location: "brazilsouth"
+          ports: 80, 443
+          
