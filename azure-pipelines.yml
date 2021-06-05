@@ -36,6 +36,8 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
+                export DOCKER_PATH=/agent/_work/_tool/docker-stable/17.9.0-ce/x64/
+                export PATH=$PATH:$DOCKER_PATH
                 sudo systemctl enable docker.service
                 sudo systemctl enable containerd.service
 
