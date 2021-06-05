@@ -24,7 +24,7 @@ stages:
       - job: Build
         displayName: Build
         pool:
-          name: AzureAgentPool
+          name: "Azure Pipelines"
           vmImage: $(vmImageName)
 
         steps:
