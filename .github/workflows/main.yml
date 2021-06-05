@@ -16,17 +16,17 @@ jobs:
       - name: "Login via Azure CLI"
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: $AZURE_CREDENTIALS
 
       - name: "Build and push image"
         uses: azure/docker-login@v1
         with:
-          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
+          login-server: $REGISTRY_LOGIN_SERVER
+          username: $REGISTRY_USERNAME
+          password: $REGISTRY_PASSWORD
       - run: |
-          docker build ./azure-web-api -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:${{ github.sha }}
-          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:${{ github.sha }}
+          docker build ./azure-web-api -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/$GITHUI_REPOSITORY:$GITHUB_RUN_ID
+          docker push $REGISTRY_LOGIN_SERVER/$GITHUI_REPOSITORY:$GITHUB_RUN_ID
 
   deploy:
     runs-on: ubuntu-latest
@@ -35,16 +35,16 @@ jobs:
       - name: "Login via Azure CLI"
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: $AZURE_CREDENTIALS
 
       - name: "Deploy to Azure Container Instances"
         uses: "azure/aci-deploy@v1"
         with:
-          resource-group: ${{ secrets.RESOURCE_GROUP }}
+          resource-group: $RESOURCE_GROUP
           dns-name-label: aztek-azure-web-api
-          image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:${{ github.sha }}
-          registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-          registry-username: ${{ secrets.REGISTRY_USERNAME }}
-          registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+          image: $REGISTRY_LOGIN_SERVER/$GITHUI_REPOSITORY:$GITHUB_RUN_ID
+          registry-login-server: $REGISTRY_LOGIN_SERVER
+          registry-username: $REGISTRY_USERNAME
+          registry-password: $REGISTRY_PASSWORD
           name: aztek-azure-web-api-container
           location: "brazilsouth"
