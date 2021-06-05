@@ -25,7 +25,8 @@ stages:
   jobs:
   - job: Build
     displayName: Build
-    pool:
+    pool: 
+      name: AzureAgentPool
       vmImage: $(vmImageName)
     steps:
     - task: Docker@2
